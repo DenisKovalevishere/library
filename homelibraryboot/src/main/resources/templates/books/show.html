@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang=en xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content= "text/html; charset= UTF-8"/>
+<title>Book</title>
+</head>
+<body>
+<a href="/books">Список книг</a>
+<br/>
+<h2 >Карточка книги</h2>
+
+	<p th:text="${book.getTitle()}">Value</p>
+ 	<p th:text="${book.getAuthor()}">Value</p>
+ 	<p th:text="${book.getLanguage()}">Value</p>
+ 	<p th:text="${book.getCreatedAt()}">Value</p>
+ 	<p th:text="${book.getCreatedWho()?.getUserName()}">Value</p>
+<form th:method="PATCH"
+		th:action="@{/books/{id}/check(id=${book.getId()})}">
+		<input type="submit" value="Пометить как читаю" />
+
+	</form>
+
+
+
+
+<br/>
+<hr/>
+<form th:method="GET"
+		th:action="@{/books/{id}/edit(id=${book.getId()})}">
+		<input type="submit" value="изменить книгу" />
+	</form>
+	
+	<form 
+	   th:method="DELETE"
+		th:action="@{/books/{id}(id=${book.getId()})}">
+		<input type="submit" value="удалить книгу" />
+		
+	</form>
+	
+	<br/>
+	<form th:action="@{/logout}" th:method="POST">
+<input type="submit" value="выйти"/>
+</form>
+
+</body>
+</html>

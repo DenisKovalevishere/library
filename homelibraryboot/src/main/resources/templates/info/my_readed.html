@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang=en xmlns:th="http://thymeleaf.org" >
+<head>
+<meta charset="UTF-8">
+<title>Info</title>
+</head>
+<body>
+
+<a href="/books">Доступные книги</a>
+
+<br/>
+
+<a href="/info/">Читаемые книги</a>
+
+
+
+<h1>Список прочитаных книг</h1>
+	<br>
+
+	<div th:each="info : ${readedInfo}">
+		<a th:href="@{/info/{id}(id=${info.getId()})}"
+			th:text="${info.getId()+ ', ' + info.getReadBook().getTitle() + ', '  + info.getReadBook().getAuthor() + ', ' 
+			+ info.getRidingPerson().getUserName()}">book</a>
+			
+			
+	</div>
+
+
+	<br>
+
+<form th:action="@{/logout}" th:method="POST">
+<input type="submit" value="выйти" />
+</form>
+
+</body>
