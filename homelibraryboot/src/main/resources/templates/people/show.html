@@ -1,38 +1,33 @@
-<!DOCTYPE html>
-<html lang=en xmlns:th="http://thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Person</title>
-</head>
-<body>
-<a href="/people">Все пользователи</a>
-<br/>
-	<h2>Карточка пользователя</h2>
+<div th:replace= "parts/common::top"></div>
 
-	<p th:text="${person.getUserName()}">Value</p>
-	<p th:text="${person.getRole()}">Value</p>
-	<p th:text="${person.getCreatedAt()}">Value</p>
-	<br/>
-	<hr/>
+	<div class="container mt-5">
+	<div class="card">
+  <div class="card-header">
+	Person card</div>
+	<div class="card-body">
+    <h5 class="card-title"><p th:text="${person.getUserName()}">Value</p></h5>
+	 <p class="card-text"><p th:text="'Role: ' + ${person.getRole()}">Value</p></p>
+	 <p class="card-text"><p th:text="'Password: ' + ${person.getPassword()}">Value</p></p>
+	 <p class="card-text"><p th:text="'Created at: ' + ${person.getCreatedAt().toLocalDate()}">Value</p></p>
 
-
-
+	
+	
+	
+	
+<div>
 	<form th:method="GET"
 		th:action="@{/people/{id}/edit(id=${person.getId()})}">
-		<input type="submit" value="изменить пользователя" />
-
+		<button type="submit" class="btn btn-warning">Update person</button>
 	</form>
-
 	<form th:method="DELETE"
 		th:action="@{/people/{id}(id=${person.getId()})}">
-		<input type="submit" value="удалить пользователя" />
-
+		<button type="submit" class="btn btn-danger">Delete person</button>
 	</form>
-	
-	<br/>
-	<form th:action="@{/logout}" th:method="POST">
-<input type="submit" value="выйти"/>
-</form>
+</div>
+	</div>
+</div>
 
-</body>
-</html>
+
+
+</div>
+<div th:replace= "parts/common::down"></div>

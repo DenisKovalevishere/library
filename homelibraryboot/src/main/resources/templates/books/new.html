@@ -1,28 +1,38 @@
-<!DOCTYPE html>
-<html lang=en xmlns:th="http://thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>New book</title>
-</head>
-<body>
 
-<form th:method="POST" th:action="@{/books}" th:object="${book}">
-		<label for="title">Введите название книги</label> 
-		<input type="text" th:field="*{title}" id="title" /> 
-		<div style="color:red" th:if="${#fields.hasErrors('title')}" th:errors = "*{title}">Title error</div>
-		<br> 
-		<label for="author">Введите автора книги</label> 
-		<input type="text" th:field="*{author}" id="author" /> 
-		<div style="color:red" th:if="${#fields.hasErrors('author')}" th:errors = "*{author}">Author error</div>
-		<br> 
-		<label for="language">Язык книги</label> 
-		<input type="text" th:field="*{language}" id="language" /> 
-		<div style="color:red" th:if="${#fields.hasErrors('language')}" th:errors = "*{language}">language error</div>
-		<br> 
-		<hr/>
-		<input type="submit" value="добавить!" />
+<div th:replace="parts/common::top"></div>
 
+<div class="container mt-5">
+	<form th:method="POST" th:action="@{/books}" th:object="${book}">
+		
+		<form class="row g-3">
+		<div class="col-12">
+		<label for="title" class="form-label">Enter book title</label> <input type="text" class="form-control"
+			th:field="*{title}" id="title" />
+		<div style="color: red" th:if="${#fields.hasErrors('title')}"
+			th:errors="*{title}">Title error</div>
+		<label for="author" class="form-label">Enter book author</label> <input type="text" class="form-control"
+			th:field="*{author}" id="author" />
+		<div style="color: red" th:if="${#fields.hasErrors('author')}"
+			th:errors="*{author}">Author error</div>
+		
+		<label for="description" class="form-label">Enter book description</label> <input class="form-control"
+		style="height: 100px"	type="text" th:field="*{description}" id="description" />
+		<div style="color: red" th:if="${#fields.hasErrors('description')}"
+			th:errors="*{description}">Description error</div>
+		
+		
+		
+		<div class="col-6">
+		<label for="language" class="form-label">Enter book language</label> <input type="text" class="form-control"
+			th:field="*{language}" id="language" />
+		<div style="color: red" th:if="${#fields.hasErrors('language')}"
+			th:errors="*{language}">language error</div>
+			</div>
+
+		<button type="submit" class="btn btn-success mt-3">Add book</button>
+
+	 </div>
 	</form>
-
-</body>
-</html>
+	</form>
+</div>
+<div th:replace="parts/common::down"></div>

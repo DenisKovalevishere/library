@@ -32,9 +32,9 @@ public class AuthTest {
 		this.mockMvc.perform(get("/auth/login"))
 		.andDo(print())
 		.andExpect(status().isOk())
-		.andExpect(content().string(containsString("Login")))
-		.andExpect(content().string(containsString("Введите имя пользователя:")))
-		.andExpect(content().string(containsString("Введите пароль:")));
+		.andExpect(content().string(containsString("Sign In")))
+		.andExpect(content().string(containsString("User name :")))
+		.andExpect(content().string(containsString("Password :")));
 	}
 	
 	@Test

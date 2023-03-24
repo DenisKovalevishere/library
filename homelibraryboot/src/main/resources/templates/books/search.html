@@ -1,37 +1,26 @@
-<!DOCTYPE html>
-<html lang=en xmlns:th="http://thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Search</title>
-</head>
-<body>
 
-<a href="/books">Books</a>
-<br/>
+<div th:replace="parts/common::top"></div>
 
-<form th:method = "POST" th:action="@{/books/search}">
-<label for="query">Enter search book</label>
-<input type="text" id="query" name="query"/>
-<br/>
-<input type="submit" value = "Search!"/>
-</form>
-
-<div th:if="${books}">
-	<div th:if="${books.isEmpty()}">
-		<span>Books not find</span>
-	</div>
-	
-	<div th:each="book : ${books}">
-		<a th:href="@{/books/{id}(id=${book.getId()})}"
-		th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getLanguage()}">book</a>
-		
+<div class="container mt-5">
+	<form th:method="POST" th:action="@{/books/search}">
+		<form class="form-row">
+ 		<div class="form-group col-md-6">
+		<label for="query" ></label> <input type="text"
+			id="query" name="query"  placeholder="Enter the book title"/> 
+			<button class="btn btn-primary ml-2" type="submit" >Search</button>
+			</div>
+			</form>
 			
-			<hr/>
+	</form>
+	<div th:if="${books}">
+		<div th:if="${books.isEmpty()}">
+			<span>Books not find</span>
+		</div>
+		<div th:each="book : ${books}">
+			<a th:href="@{/books/{id}(id=${book.getId()})}"
+				th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getLanguage()}">book</a>
+		</div>
 	</div>
+
 </div>
-
-	
-
-
-</body>
-</html>
+<div th:replace="parts/common::down"></div>

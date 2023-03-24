@@ -16,7 +16,7 @@ public class BookDTO {
 
 	private String language;
 	
-	
+	private String description;
 
 	private LocalDateTime createdAt;
 
@@ -50,6 +50,14 @@ public class BookDTO {
 
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 	

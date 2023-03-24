@@ -1,47 +1,35 @@
-<!DOCTYPE html>
-<html lang=en xmlns:th="http://thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="Content-Type" content= "text/html; charset= UTF-8"/>
-<title>Book</title>
-</head>
-<body>
-<a href="/books">Список книг</a>
-<br/>
-<h2 >Карточка книги</h2>
+<div th:replace="parts/common::top"></div>
 
-	<p th:text="${book.getTitle()}">Value</p>
- 	<p th:text="${book.getAuthor()}">Value</p>
- 	<p th:text="${book.getLanguage()}">Value</p>
- 	<p th:text="${book.getCreatedAt()}">Value</p>
- 	<p th:text="${book.getCreatedWho()?.getUserName()}">Value</p>
-<form th:method="PATCH"
+<div class="container mt-5">
+	<div class="card">
+  <div class="card-header">
+	Book card</div>
+	<div class="card-body">
+    <h5 class="card-title"><p th:text="${book.getTitle()}">Value</p></h5>
+	 <p class="card-text"><p th:text="'Author: ' + ${book.getAuthor()}">Value</p></p>
+	 <p class="card-text"><p th:text="'Language: ' + ${book.getLanguage()}">Value</p></p>
+	 <p class="card-text"><p th:text="'Created at: ' + ${book.getCreatedAt().toLocalDate()}">Value</p></p>
+	 <p class="card-text"><p th:text="'Created who: ' + ${book.getCreatedWho()?.getUserName()}">Value</p></p>
+	 <p class="card-text"><p th:text="'Description: ' + ${book.getDescription()}">Value</p></p>
+	
+	
+<div>
+<a th:if="${#authentication.getPrincipal().getPerson().getRole().equals('ROLE_USER')}">
+	<form th:method="PATCH"
 		th:action="@{/books/{id}/check(id=${book.getId()})}">
-		<input type="submit" value="Пометить как читаю" />
-
-	</form>
-
-
-
-
-<br/>
-<hr/>
-<form th:method="GET"
+		<button type="submit" class="btn btn-secondary mt-3">Tap i read</button>
+	</form></a>
+	<a th:if="${#authentication.getPrincipal().getPerson().getRole().equals('ROLE_LIBRARIAN')}">
+	<form th:method="GET"
 		th:action="@{/books/{id}/edit(id=${book.getId()})}">
-		<input type="submit" value="изменить книгу" />
+		<button type="submit" class="btn btn-warning">Update book</button>
 	</form>
-	
-	<form 
-	   th:method="DELETE"
-		th:action="@{/books/{id}(id=${book.getId()})}">
-		<input type="submit" value="удалить книгу" />
-		
-	</form>
-	
-	<br/>
-	<form th:action="@{/logout}" th:method="POST">
-<input type="submit" value="выйти"/>
-</form>
+	<form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
+		<button type="submit" class="btn btn-danger">Delete book</button>
+	</form></a>
+</div>
+	</div>
+</div>
 
-</body>
-</html>
+</div>
+<div th:replace="parts/common::down"></div>

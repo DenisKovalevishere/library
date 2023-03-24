@@ -1,28 +1,36 @@
-<!DOCTYPE html>
-<html lang=en xmlns:th="http://thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>All people</title>
-</head>
-<body>
+<div th:replace="parts/common::top"></div>
 
-<br/>
-	<h1>Список пользователей</h1>
-	<br>
+<div class="container mt-5">
+	<h5 class="mt-auto">Users :</h5>
+	
+	<table class="table">
+  	<thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">User name</th>
+      <th scope="col">Role</th>
 
-	<div th:each="person : ${people}">
-		<a th:href="@{/people/{id}(id=${person.getId()})}"
-			th:text="${person.getUserName() + ', ' + person.getRole()}">user</a>
-	</div>
-	<br />
-	<hr />
-	<a href="/people/new">добавить новаго библиотекаря</a>
+    </tr>
+  </thead>
+  <tbody>
+	<div th:each="person, state : ${people}">
+	<tr>	
+	<th scope="row"><a th:href="@{/people/{id}(id=${person.getId()})}"
+			th:text="${state.index+1}">user</a></th>
+      <td><a th:href="@{/people/{id}(id=${person.getId()})}"
+			th:text="${person.getUserName()}">user</a></td>
+			
+		 <td><a th:href="@{/people/{id}(id=${person.getId()})}"
+			th:text="${person.getRole()}">user</a></td>	
+			
+			</tr>
+			</div>
+		</tbody>
+</table>	
+	
+	<form th:action="@{/people/new}" th:method="GET">
+		<button class="btn btn-success mt-3" type="submit">Add new librarian</button>
+	</form>
 
-
-<br/>
-<form th:action="@{/logout}" th:method="POST">
-<input type="submit" value="выйти"/>
-</form>
-
-</body>
-</html>
+</div>
+<div th:replace="parts/common::down"></div>

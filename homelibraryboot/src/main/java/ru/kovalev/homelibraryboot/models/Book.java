@@ -46,6 +46,9 @@ public class Book {
 	@Column(name = "created_at")
 	private LocalDateTime createdAt;
 	
+	@Column(name="description")
+	private String description;
+	
 	@ManyToOne
 	@JoinColumn(name = "created_who", referencedColumnName = "id")
 	private Person createdWho;
@@ -58,10 +61,11 @@ public class Book {
 	public Book(
 			@NotEmpty(message = "Название не должно быть пустым") @Size(min = 2, max = 100, message = "Название должно быть от 2 до 100 символов") String title,
 			@NotEmpty(message = "Автор не должен быть пустым") @Size(min = 2, max = 100, message = "Автор должен быть от 2 до 100 символов") String author,
-			@NotEmpty(message = "Язык не должена быть пустым") String language) {
+			@NotEmpty(message = "Язык не должена быть пустым") String language, String description) {
 		this.title = title;
 		this.author = author;
 		this.language = language;
+		this.description=description;
 	}
 
 	public int getId() {
@@ -111,9 +115,15 @@ public class Book {
 	public void setCreatedWho(Person createdWho) {
 		this.createdWho = createdWho;
 	}
+	
+	public String getDescription() {
+		return description;
+	}
 
-	
-	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public List<InformationBookPerson> getInformationBooks() {
 		return informationBooks;
 	}
@@ -124,7 +134,7 @@ public class Book {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(author, createdAt, id, language, title);
+		return Objects.hash(author, createdAt, id, language, title, description);
 	}
 
 	@Override
@@ -137,13 +147,13 @@ public class Book {
 			return false;
 		Book other = (Book) obj;
 		return Objects.equals(author, other.author) && Objects.equals(createdAt, other.createdAt) && id == other.id
-				&& Objects.equals(language, other.language) && Objects.equals(title, other.title);
+				&& Objects.equals(language, other.language) && Objects.equals(title, other.title) && Objects.equals(description, other.description);
 	}
 
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", language=" + language + ", createdAt="
-				+ createdAt + "]";
+		return "Book [title=" + title + ", author=" + author + ", language=" + language + ", createdAt=" + createdAt
+				+ ", description=" + description + ", createdWho=" + createdWho + "]";
 	}
 
 	

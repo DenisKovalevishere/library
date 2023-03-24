@@ -35,9 +35,10 @@ class UsersServiceTest {
 	private String bookTitle = "TestTitle";
 	private String bookAuthor = "TestAuthor";
 	private String bookLanguage = "TestLanguage";
+	private String bookDescription = "TestDescription";
 
 	private int createBook() {
-		Book book = new Book(bookTitle, bookAuthor, bookLanguage);
+		Book book = new Book(bookTitle, bookAuthor, bookLanguage, bookDescription);
 		return book.getId();
 	}
 
