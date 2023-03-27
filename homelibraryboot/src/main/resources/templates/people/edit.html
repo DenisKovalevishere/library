@@ -14,7 +14,7 @@
 			</div>
 		<div class="mb-3">
 		<label for="password" class="form-label">Enter password</label> <input type="text"
-			placeholder="Password" id="password" class="form-control"/>
+			th:field="*{password}" placeholder="Password" id="password" class="form-control"/>
 		<div style="color: red" th:if="${#fields.hasErrors('password')}"
 			th:errors="*{password}">Name error</div>
 		</div>	

@@ -70,6 +70,7 @@ public class LibrarianServise {
 	//Method enrich only for new book, this book already exists
 	@Transactional
 	public void updateBook(Book updatedBook, int id) {
+		enrichBook(updatedBook);
 		updatedBook.setId(id);
 		booksRepository.save(updatedBook);
 	}

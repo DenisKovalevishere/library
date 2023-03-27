@@ -58,7 +58,7 @@ public class AuthTest {
 		this.mockMvc.perform(formLogin("/process_login").user("testnameadmin").password("1"))
 		.andDo(print())
 		.andExpect(status().is3xxRedirection())
-		.andExpect(redirectedUrl("/library"));
+		.andExpect(redirectedUrl("/library/redcon"));
 	}
 	
 	@Test
