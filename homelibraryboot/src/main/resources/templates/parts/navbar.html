@@ -30,7 +30,7 @@
 					
 				</ul>
 
-				<div th:if="${#authentication.name} !=anonymousUser"><a th:text="${#authentication.name}"></a></div>
+				<div style="margin-right: 10px" th:if="${#authentication.name} !=anonymousUser"><a th:text="${#authentication.name}" class = "text-white"></a></div>
 
 				<div th:if="${#authentication.name} !=anonymousUser"><a th:replace="parts/common::logout">logout</a></div>
 

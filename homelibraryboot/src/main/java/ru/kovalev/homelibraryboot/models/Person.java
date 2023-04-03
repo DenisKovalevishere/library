@@ -34,7 +34,7 @@ public class Person {
 	
 	@Column(name = "password")
 	@NotEmpty(message = "Пароль не должен быть пустым")
-//	@Size(min = 8, max = 25, message = "Пароль должен быть от 8 до 25 символов")
+	@Size(min = 8, max = 100, message = "Пароль должен быть от 8 до 25 символов")
 	private String password;
 	
 	@Column(name = "role")

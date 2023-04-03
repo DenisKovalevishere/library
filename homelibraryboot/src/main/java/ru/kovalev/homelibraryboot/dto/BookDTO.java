@@ -2,18 +2,21 @@ package ru.kovalev.homelibraryboot.dto;
 
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 public class BookDTO {
 
 
-
+	@NotEmpty(message = "Название не должно быть пустым")
 	@Size(min = 2, max = 100 , message = "Название должно быть от 2 до 100 символов")
 	private String title;
 
+	@NotEmpty(message = "Автор не должен быть пустым")
 	@Size(min = 2, max = 100, message = "Автор должен быть от 2 до 100 символов")
 	private String author;
 
+	@NotEmpty(message = "Язык не должена быть пустым")
 	private String language;
 	
 	private String description;

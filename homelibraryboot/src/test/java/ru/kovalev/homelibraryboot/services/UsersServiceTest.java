@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import ru.kovalev.homelibraryboot.models.Book;
@@ -18,6 +19,7 @@ import ru.kovalev.homelibraryboot.repositories.InformationsBookPersonRepository;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @WithMockUser(username = "testnameuser", password = "1111111111")
+@TestPropertySource("/application-test.properties")
 class UsersServiceTest {
 
 	@Autowired
