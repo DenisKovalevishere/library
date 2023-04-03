@@ -7,7 +7,7 @@
 	<div class="card-body">
     <h5 class="card-title"><p th:text="${oneInfo.getReadBook().getTitle()}">Value</p></h5>
 	 <p class="card-text"><p th:text="'Author: ' + ${oneInfo.getReadBook().getAuthor()}">Value</p></p>
-	 <p class="card-text"><p th:text="'Curent page: ' + ${oneInfo.getCurentPage()}">Value</p></p>
+	 <p class="card-text"><p th:text="'Current page: ' + ${oneInfo.getCurentPage()}">Value</p></p>
 	 <p class="card-text"><p th:text="'Book readed: ' + ${oneInfo.isRead()}">Value</p></p>
 	 <p class="card-text"><p th:text="'When start read: ' + ${oneInfo.getStartReading()?.toLocalDate()}">Value</p></p>
 	 <p class="card-text"><p th:text="'When end read: ' + ${oneInfo.getEndReading()?.toLocalDate()}">Value</p></p>
@@ -20,8 +20,11 @@
 		th:object="${oneInfo}">
 		<form class="row g-3">
 		<div class="col-2">
-		<label for="curent_page" class="form-label">Enter current page</label> 
-		<input class="form-control" type="text" id="curentPage" name="curent_page" /> </div>
+		<label for="curentPage" class="form-label">Enter current page</label> 
+		<input class="form-control" type="text" id="curentPage" name="curentPage" th:field="*{curentPage}" /> 
+		<div style="color: red" th:if="${#fields.hasErrors('curentPage')}"
+			th:errors="*{curentPage}">Current page error</div>
+		</div>
 		<button type="submit" class="btn btn-success" >Done</button></form>
 	</form>
 	<form th:method="PATCH"

@@ -2,8 +2,7 @@ package ru.kovalev.homelibraryboot.services;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
-
+import java.util.Optional;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -39,8 +38,12 @@ public class LibrarianServise {
 		return booksRepository.findById(id).orElse(null);
 	}
 	
-	public List<Book> findBookByTitle(String title) {
+	public List<Book> findBookContainTitle(String title) {
 		return booksRepository.findByTitleContaining(title);
+	}
+	
+	public Optional<Book> findBookByTitle(String title) {
+		return booksRepository.findByTitle(title);
 	}
 	
 	public Person getCurrentPerson(){

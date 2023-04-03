@@ -47,15 +47,14 @@ public class AuthController {
 	}
 	
 	@PostMapping("/registration")
-	public String performRegistration(@ModelAttribute @Valid PersonDTO personDTO, BindingResult bindingResult){
+	public String performRegistration(@ModelAttribute("person") @Valid PersonDTO personDTO, BindingResult bindingResult){
 
 		Person person = convertToPerson(personDTO);
 		
 		personValidator.validate(person, bindingResult);
 		
 		if(bindingResult.hasErrors()) {
-			System.out.println(bindingResult);
-			return "redirect:/auth/registration";//
+			return "auth/registration";//
 
 		} 
 		

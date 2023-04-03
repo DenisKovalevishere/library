@@ -1,5 +1,7 @@
 package ru.kovalev.homelibraryboot.controllers;
 
+import java.util.stream.Collectors;
+
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
@@ -20,6 +22,7 @@ import ru.kovalev.homelibraryboot.dto.BookDTO;
 import ru.kovalev.homelibraryboot.models.Book;
 import ru.kovalev.homelibraryboot.services.LibrarianServise;
 import ru.kovalev.homelibraryboot.services.UsersService;
+import ru.kovalev.homelibraryboot.util.BookValidator;
 
 @Controller
 @RequestMapping("/books")
@@ -28,31 +31,35 @@ public class LibrarianController {
 	private final LibrarianServise librarianServise;
 	private final UsersService usersService;
 	private final ModelMapper modelMapper;
+	private final BookValidator bookValidator;
 
 
-	public LibrarianController(LibrarianServise librarianServise, ModelMapper modelMapper, UsersService usersService) {
+	public LibrarianController(LibrarianServise librarianServise, ModelMapper modelMapper, UsersService usersService, BookValidator bookValidator) {
 		this.librarianServise = librarianServise;
 		this.usersService = usersService;
 		this.modelMapper = modelMapper;
+		this.bookValidator = bookValidator;
+
 	}
 	
 	private Book convertToBook(BookDTO bookDTO) {
 		return this.modelMapper.map(bookDTO, Book.class);
 	}
 	
-//	private BookDTO convertToBookDTO(Book book) {
-//		return this.modelMapper.map(book, BookDTO.class);
-//	}
+	private BookDTO convertToBookDTO(Book book) {
+		return this.modelMapper.map(book, BookDTO.class);
+	}
+	
 	@PreAuthorize("hasRole('ROLE_LIBRARIAN') or hasRole('ROLE_USER')")
 	@GetMapping
 	public String index(Model model) {
-		model.addAttribute("books", librarianServise.findAllBooks());
+		model.addAttribute("books", librarianServise.findAllBooks().stream().map(this::convertToBookDTO).collect(Collectors.toList()));
 		return "books/index";
 	}
 	////	@PreAuthorize("hasRole('ROLE_LIBRARIAN') or hasRole('ROLE_USER')")
 	@GetMapping("/{id}")
 	public String showBook(Model model, @PathVariable ("id") int id) {
-		model.addAttribute("book", librarianServise.findBookById(id));
+		model.addAttribute("book", convertToBookDTO(librarianServise.findBookById(id)));
 		return "books/show";
 	}
 	
@@ -65,33 +72,37 @@ public class LibrarianController {
 	@PreAuthorize("hasRole('ROLE_LIBRARIAN')")
 	@PostMapping
 	public String createBook(@ModelAttribute ("book") @Valid BookDTO bookDTO, BindingResult bindingResult) {
+		Book book = convertToBook(bookDTO);
+		
+		bookValidator.validate(book, bindingResult);
 		if (bindingResult.hasErrors()) {
 			return "books/new";
 		}
-		librarianServise.saveBook(convertToBook(bookDTO));		
+		librarianServise.saveBook(book);		
 		return "redirect:/books";
 	}
 	
 //	@PreAuthorize("hasRole('ROLE_LIBRARIAN')")
 	@GetMapping("/{id}/edit")
 	public String editBook(Model model, @PathVariable ("id") int id) {
-		model.addAttribute("book", librarianServise.findBookById(id));
+		model.addAttribute("book", convertToBookDTO(librarianServise.findBookById(id)));
 		return "books/edit";
 	}
 
 	@PreAuthorize("hasRole('ROLE_LIBRARIAN')")
 	@PatchMapping("{id}")
 	public String updateBook(@ModelAttribute ("book") @Valid BookDTO bookDTO, @PathVariable ("id") int id, BindingResult bindingResult) {
+		Book book = convertToBook(bookDTO);
+		
+		bookValidator.validate(book, bindingResult);
 		if (bindingResult.hasErrors()) {
 			return "books/edit";
 		}
-		librarianServise.updateBook(convertToBook(bookDTO), id);
+		librarianServise.updateBook(book, id);
 		
 		return "redirect:/books";
 	}
 	
-	//patch or post ; need relocation to userController
-	////	@PreAuthorize("hasRole('ROLE_USER')")
 	@PatchMapping("{id}/check")
 	public String checkBook(@PathVariable ("id") int id) {
 		usersService.setReadingWhatBook(id);
@@ -114,7 +125,7 @@ public class LibrarianController {
 	////	@PreAuthorize("hasRole('ROLE_LIBRARIAN') or hasRole('ROLE_USER')")
 	@PostMapping("/search")
 	public String searchByTitle(Model model, @RequestParam ("query") String query) {
-		model.addAttribute("books", librarianServise.findBookByTitle(query));
+		model.addAttribute("books", librarianServise.findBookContainTitle(query).stream().map(this::convertToBookDTO).collect(Collectors.toList()));
 		return "books/search";
 	}
 }

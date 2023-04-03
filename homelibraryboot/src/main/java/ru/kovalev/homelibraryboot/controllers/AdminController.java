@@ -3,6 +3,8 @@ package ru.kovalev.homelibraryboot.controllers;
 
 
 
+import java.util.stream.Collectors;
+
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.kovalev.homelibraryboot.dto.PersonDTO;
 import ru.kovalev.homelibraryboot.models.Person;
 import ru.kovalev.homelibraryboot.services.PeopleService;
+import ru.kovalev.homelibraryboot.util.PersonValidator;
 
 @Controller
 @RequestMapping("/people")
@@ -29,27 +32,33 @@ public class AdminController {
 
 	private final PeopleService peopleService;
 	private final ModelMapper modelMapper;
+	private final PersonValidator personValidator;
 
 	
-	public AdminController(PeopleService peopleService, ModelMapper modelMapper) {
+	public AdminController(PeopleService peopleService, ModelMapper modelMapper, PersonValidator personValidator) {
 		this.peopleService = peopleService;
 		this.modelMapper = modelMapper;
+		this.personValidator = personValidator;
 	}
 	
 	private Person convertToPerson(PersonDTO personDTO) {
 		return this.modelMapper.map(personDTO, Person.class);
 	}
 	
+	private PersonDTO convertToPersonDTO(Person person) {
+		return this.modelMapper.map(person, PersonDTO.class);
+	}
+	
 //	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping()
 	public String index(Model model){
-		model.addAttribute("people", peopleService.findAllPeople());
+		model.addAttribute("people", peopleService.findAllPeople().stream().map(this::convertToPersonDTO).collect(Collectors.toList()));
 		return "people/index";
 	}
 	
 	@GetMapping("/{id}")
 	public String showPerson(Model model, @PathVariable ("id") int id) {
-		model.addAttribute("person", peopleService.findPerson(id));
+		model.addAttribute("person", convertToPersonDTO(peopleService.findPerson(id)));
 		return "people/show";
 	}
 	
@@ -62,28 +71,32 @@ public class AdminController {
 ////	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping
 	public String saveLibrarian(@ModelAttribute("person") @Valid PersonDTO personDTO, BindingResult bindingResult) {
-		
+		Person person = convertToPerson(personDTO);
+		personValidator.validate(person, bindingResult);
 		if(bindingResult.hasErrors()) {
-			return "redirect:/people/new";
+			return "people/new";
 		}
 		
-		peopleService.savePerson(convertToPerson(personDTO));
+		peopleService.savePerson(person);
 		return "redirect:/people";
 	}
 	
 	@GetMapping("/{id}/edit")
 	public String edit(Model model, @PathVariable("id") int id) {
-		model.addAttribute("person", peopleService.findPerson(id));
+		model.addAttribute("person", convertToPersonDTO(peopleService.findPerson(id)));
 		return "people/edit";
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PatchMapping("/{id}")
 	public String updatePerson(@ModelAttribute ("person") @Valid PersonDTO personDTO, @PathVariable ("id") int id, BindingResult bindingResult) {
+		Person person = convertToPerson(personDTO);
+		
+		personValidator.validate(person, bindingResult);
 		if (bindingResult.hasErrors()) {
 			return "people/edit";
 		}
-		peopleService.updatePerson(convertToPerson(personDTO), id);
+		peopleService.updatePerson(person, id);
 		
 		return "redirect:/people";
 	}

@@ -13,14 +13,19 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link" href="/library/redcon">Home</a></li>
+					<!-- <li class="nav-item"><a class="nav-link" href="/library/redcon">Home</a></li> -->
 					<a th:if="${#authentication.name} !=anonymousUser">
 					<a th:if="${#authentication.getPrincipal().getPerson().getRole().equals('ROLE_ADMIN')}">
 					<li class="nav-item"><a class="nav-link" href="/people">People</a></li>
 					</a>
+					
+					
+					
 					<a th:if="${#authentication.getPrincipal().getPerson().getRole() !=('ROLE_ADMIN')}">
 					<li class="nav-item"><a class="nav-link" href="/books">Books</a></li>
 					</a>
+					
+					
 					<a th:if="${#authentication.getPrincipal().getPerson().getRole().equals('ROLE_USER')}">
 					<li class="nav-item"><a class="nav-link" href="/info">I read</a></li>
 					<li class="nav-item"><a class="nav-link" href="/info/readed">Readed book</a></li>
@@ -30,7 +35,7 @@
 					
 				</ul>
 
-				<div style="margin-right: 10px" th:if="${#authentication.name} !=anonymousUser"><a th:text="${#authentication.name}" class = "text-white"></a></div>
+				<div style="margin-right: 10px;" th:if="${#authentication.name} !=anonymousUser"><span th:text="${#authentication.name}" class = "text-white"></span></div>
 
 				<div th:if="${#authentication.name} !=anonymousUser"><a th:replace="parts/common::logout">logout</a></div>
 
