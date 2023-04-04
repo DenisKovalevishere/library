@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import ru.kovalev.homelibraryboot.dto.PersonDTO;
 import ru.kovalev.homelibraryboot.models.Person;
-import ru.kovalev.homelibraryboot.services.PeopleService;
+import ru.kovalev.homelibraryboot.services.AdminService;
 
 import ru.kovalev.homelibraryboot.services.RegistrationService;
 import ru.kovalev.homelibraryboot.util.PersonValidator;
@@ -30,11 +30,11 @@ public class AuthController {
 	private final ModelMapper modelMapper;
 	private final PersonValidator personValidator;
 
-	private final PeopleService peopleService;
+	private final AdminService peopleService;
 
 	
 	
-	public AuthController(RegistrationService registrationService, ModelMapper modelMapper, PersonValidator personValidator, PeopleService adminService) {
+	public AuthController(RegistrationService registrationService, ModelMapper modelMapper, PersonValidator personValidator, AdminService adminService) {
 		this.registrationService = registrationService;
 		this.modelMapper = modelMapper;
 		this.personValidator = personValidator;

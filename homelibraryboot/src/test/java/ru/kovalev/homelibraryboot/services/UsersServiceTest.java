@@ -29,7 +29,7 @@ class UsersServiceTest {
 	private LibrarianServise librarianServise;
 
 	@Autowired
-	private PeopleService peopleService;
+	private AdminService peopleService;
 
 	@MockBean
 	private InformationsBookPersonRepository informationsBookPersonRepository;

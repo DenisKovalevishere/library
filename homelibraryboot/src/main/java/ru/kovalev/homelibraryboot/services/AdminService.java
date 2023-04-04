@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,20 +17,20 @@ import ru.kovalev.homelibraryboot.repositories.PeopleRepository;
 
 @Service
 @Transactional(readOnly = true)
-public class PeopleService {
+public class AdminService {
 
 	private final PeopleRepository peopleRepository;
 	private final PasswordEncoder passwordEncoder;
 
 
-	public PeopleService(PeopleRepository peopleRepository, PasswordEncoder passwordEncoder) {
+	public AdminService(PeopleRepository peopleRepository, PasswordEncoder passwordEncoder) {
 		this.peopleRepository = peopleRepository;
 		this.passwordEncoder = passwordEncoder;
 	}
 	
 //	@PreAuthorize("hasRole('ROLE_ADMIN')") //or hasRole('ROLE_USER')")
 	public List<Person> findAllPeople() {
-		return peopleRepository.findAll();
+		return peopleRepository.findAll(Sort.by("userName"));
 	}
 	
 	public Person findPerson(int id){

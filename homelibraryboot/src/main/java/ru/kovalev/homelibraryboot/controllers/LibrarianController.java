@@ -52,8 +52,8 @@ public class LibrarianController {
 	
 	@PreAuthorize("hasRole('ROLE_LIBRARIAN') or hasRole('ROLE_USER')")
 	@GetMapping
-	public String index(Model model) {
-		model.addAttribute("books", librarianServise.findAllBooks().stream().map(this::convertToBookDTO).collect(Collectors.toList()));
+	public String index(Model model, @RequestParam(value="page", required = false) Integer page) {
+		model.addAttribute("books", librarianServise.findAllBooks(page).stream().map(this::convertToBookDTO).collect(Collectors.toList()));
 		return "books/index";
 	}
 	////	@PreAuthorize("hasRole('ROLE_LIBRARIAN') or hasRole('ROLE_USER')")
@@ -91,7 +91,7 @@ public class LibrarianController {
 
 	@PreAuthorize("hasRole('ROLE_LIBRARIAN')")
 	@PatchMapping("{id}")
-	public String updateBook(@ModelAttribute ("book") @Valid BookDTO bookDTO, @PathVariable ("id") int id, BindingResult bindingResult) {
+	public String updateBook(@ModelAttribute ("book") @Valid BookDTO bookDTO, BindingResult bindingResult, @PathVariable ("id") int id) {
 		Book book = convertToBook(bookDTO);
 		
 		bookValidator.validate(book, bindingResult);
@@ -125,6 +125,7 @@ public class LibrarianController {
 	////	@PreAuthorize("hasRole('ROLE_LIBRARIAN') or hasRole('ROLE_USER')")
 	@PostMapping("/search")
 	public String searchByTitle(Model model, @RequestParam ("query") String query) {
+
 		model.addAttribute("books", librarianServise.findBookContainTitle(query).stream().map(this::convertToBookDTO).collect(Collectors.toList()));
 		return "books/search";
 	}

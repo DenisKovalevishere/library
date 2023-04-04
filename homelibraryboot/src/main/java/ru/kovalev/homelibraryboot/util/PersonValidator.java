@@ -9,17 +9,18 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import ru.kovalev.homelibraryboot.models.Person;
-import ru.kovalev.homelibraryboot.services.PeopleService;
+import ru.kovalev.homelibraryboot.services.AdminService;
 
 
 
 @Component
 public class PersonValidator implements Validator{
 
-	private final PeopleService peopleService;
+	private final AdminService peopleService;
 
 
-	public PersonValidator(PeopleService peopleService) {
+
+	public PersonValidator(AdminService peopleService) {
 		this.peopleService = peopleService;
 	}
 

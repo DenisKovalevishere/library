@@ -21,10 +21,10 @@ import ru.kovalev.homelibraryboot.repositories.PeopleRepository;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @TestPropertySource("/application-test.properties")
-class PeopleServiceTest {
+class AdminServiceTest {
 
 	@Autowired
-	private PeopleService peopleService;
+	private AdminService peopleService;
 	
 	@MockBean
 	private PeopleRepository peopleRepository;

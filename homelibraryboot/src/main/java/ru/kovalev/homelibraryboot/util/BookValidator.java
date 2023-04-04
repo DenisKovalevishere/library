@@ -28,7 +28,7 @@ public class BookValidator implements Validator {
 		Book book = (Book) target;
 
 		if (librarianServise.findBookByTitle(book.getTitle()).isPresent()) {
-			errors.rejectValue("title", "This book is already taken");
+			errors.rejectValue("title", "", "This book is already taken");
 		}
 	}
 

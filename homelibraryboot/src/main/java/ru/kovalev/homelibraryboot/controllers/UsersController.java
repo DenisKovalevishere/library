@@ -65,6 +65,7 @@ public class UsersController {
 		return "redirect:/info/"+id;
 	}
 	
+	
 	////	@PreAuthorize("hasRole('ROLE_USER')")
 	@PatchMapping("{id}/set_readed")
 	public String setReaded(@PathVariable("id") int id) {

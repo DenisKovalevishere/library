@@ -5,13 +5,13 @@
 	<form th:method="POST" th:action="@{/books/search}">
 		<form class="form-row">
  		<div class="form-group col-md-6">
-		<label for="query" ></label> <input type="text"
+		<label for="query" ></label> <input type="text" 
 			id="query" name="query"  placeholder="Enter the book title"/> 
 			<button class="btn btn-primary ml-2" type="submit" >Search</button>
 			</div>
 			</form>
 			
-	</form>
+	
 	<div th:if="${books}">
 		<div th:if="${books.isEmpty()}">
 			<span>Books not find</span>
@@ -21,6 +21,6 @@
 				th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getLanguage()}">book</a>
 		</div>
 	</div>
-
+</form>
 </div>
 <div th:replace="parts/common::down"></div>

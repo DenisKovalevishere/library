@@ -3,10 +3,12 @@ package ru.kovalev.homelibraryboot.services;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,8 +32,11 @@ public class LibrarianServise {
 
 	}
 	
-	public List<Book> findAllBooks(){
-		return booksRepository.findAll();
+	public List<Book> findAllBooks(Integer page){
+		if(page==null) {
+			page=0;
+		}
+		return booksRepository.findAll(PageRequest.of(page, 10, Sort.by("title"))).getContent();
 	}
 	
 	public Book findBookById(int id) {
@@ -39,7 +44,9 @@ public class LibrarianServise {
 	}
 	
 	public List<Book> findBookContainTitle(String title) {
-		return booksRepository.findByTitleContaining(title);
+		List<Book> sorted = booksRepository.findByTitleContaining(title).stream().
+				sorted((o1, o2) -> ((o1.getTitle().compareTo(o2.getTitle())))).collect(Collectors.toList());		
+		return sorted;
 	}
 	
 	public Optional<Book> findBookByTitle(String title) {

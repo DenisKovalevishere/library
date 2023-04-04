@@ -14,11 +14,13 @@
 		<div style="color: red" th:if="${#fields.hasErrors('author')}"
 			th:errors="*{author}">Author error</div>
 			
-		<label for="description" class="form-label">Enter book description</label> <input class="form-control"
-		style="height: 100px"	type="text" th:field="*{description}" id="description" />
+		<label for="description" class="form-label">Enter book description</label> 
+		<div class="form-floating">
+		<textarea class="form-control"
+		style="height: 100px"	type="text" th:field="*{description}" id="description" textarea/>
 		<div style="color: red" th:if="${#fields.hasErrors('description')}"
 			th:errors="*{description}">Description error</div>
-	
+		</div>
 		
 		<div class="col-6">
 		<label for="language" class="form-label mt-2">Enter book language</label> <input class="form-control"

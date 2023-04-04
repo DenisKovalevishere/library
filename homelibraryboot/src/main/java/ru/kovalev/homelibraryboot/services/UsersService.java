@@ -3,14 +3,13 @@ package ru.kovalev.homelibraryboot.services;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ru.kovalev.homelibraryboot.models.Book;
 import ru.kovalev.homelibraryboot.models.InformationBookPerson;
-
 import ru.kovalev.homelibraryboot.repositories.BooksRepository;
 import ru.kovalev.homelibraryboot.repositories.InformationsBookPersonRepository;
 import ru.kovalev.homelibraryboot.repositories.PeopleRepository;
@@ -41,7 +40,8 @@ public class UsersService {
 	
 	//show my information about books
 	public List<InformationBookPerson> findMyInformation(){
-		return informationsBookPersonRepository.findByRidingPerson(librarianServise.getCurrentPerson());
+		return informationsBookPersonRepository.findByRidingPerson(librarianServise.getCurrentPerson()).stream()
+				.sorted((o1, o2) -> ((o1.getReadBook().getTitle().compareTo(o2.getReadBook().getTitle())))).collect(Collectors.toList());
 	}
 	
 	//show my information about readed books
@@ -76,6 +76,8 @@ public class UsersService {
 	//Set current page for reading book
 	@Transactional
 	public void setCurrentPage(int id, int currentPage) {
+		
+		
 		InformationBookPerson information = findInformation(id);
 		
 		information.setCurentPage(currentPage);
