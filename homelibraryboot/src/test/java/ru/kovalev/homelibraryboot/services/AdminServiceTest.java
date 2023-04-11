@@ -1,7 +1,5 @@
 package ru.kovalev.homelibraryboot.services;
 
-
-
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -25,13 +23,13 @@ class AdminServiceTest {
 
 	@Autowired
 	private AdminService peopleService;
-	
+
 	@MockBean
 	private PeopleRepository peopleRepository;
-	
+
 	@MockBean
 	private PasswordEncoder passwordEncoder;
-	
+
 	@Test
 	void testSavePerson() {
 		Person person = new Person("testUserNameForTests");
@@ -40,11 +38,9 @@ class AdminServiceTest {
 		Assert.assertTrue(CoreMatchers.is(person.getUserName()).matches("testUserNameForTests"));
 		Assert.assertNotNull(person.getCreatedAt());
 		Assert.assertTrue(CoreMatchers.is(person.getRole()).matches("ROLE_LIBRARIAN"));
-		
+
 		Mockito.verify(peopleRepository, Mockito.times(1)).save(person);
 		Mockito.verify(passwordEncoder, Mockito.times(1)).encode(ArgumentMatchers.eq("1111111111"));
 	}
-	
-	
 
 }

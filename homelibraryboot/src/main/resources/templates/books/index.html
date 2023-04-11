@@ -3,57 +3,59 @@
 <div class="container mt-5">
 
 	<form th:method="POST" th:action="@{/books/search}">
-	<form class="row g-3">
- 		 <div class="col-md-6">
-		<label for="query"></label> <input type="text"
-			id="query" name="query" placeholder="Enter the book title"/> 
-			<button class="btn btn-primary" type="submit" >Search</button>
-	</div>
-	</form>
+		<form class="row g-3">
+			<div class="col-md-6">
+				<label for="query"></label> <input type="text" required id="query"
+					name="query" placeholder="Enter the book title" />
+				<button class="btn btn-primary" type="submit">Search</button>
+			</div>
+		</form>
 	</form>
 
-	
+
 	<h5>Books :</h5>
-	
-	<table class="table">
-  	<thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Title</th>
-      <th scope="col">Author</th>
-      <th scope="col">Language</th>
 
-    </tr>
-  </thead>
-  <tbody>
-	<div th:each="book, state : ${books}">
-	<tr>	
-	<th scope="row"><a th:href="@{/books/{id}(id=${book.getId()})}"
-			th:text="${state.index+1}">user</a></th>
-      
-      <td><a th:href="@{/books/{id}(id=${book.getId()})}"
-			th:text="${book.getTitle()}">user</a></td>
-			
-		 <td><a th:href="@{/books/{id}(id=${book.getId()})}"
-			th:text="${book.getAuthor()}">user</a></td>	
-			
-			 <td><a th:href="@{/books/{id}(id=${book.getId()})}"
-			th:text="${book.getLanguage()}">user</a></td>
-			
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Title</th>
+				<th scope="col">Author</th>
+				<th scope="col">Language</th>
+
 			</tr>
-			
+		</thead>
+		<tbody>
+			<div th:each="book, state : ${books}">
+				<tr>
+					<th scope="row"><a
+						th:href="@{/books/{id}(id=${book.getId()})}"
+						th:text="${state.index+1}">user</a></th>
+
+					<td><a th:href="@{/books/{id}(id=${book.getId()})}"
+						th:text="${book.getTitle()}">user</a></td>
+
+					<td><a th:href="@{/books/{id}(id=${book.getId()})}"
+						th:text="${book.getAuthor()}">user</a></td>
+
+					<td><a th:href="@{/books/{id}(id=${book.getId()})}"
+						th:text="${book.getLanguage()}">user</a></td>
+
+				</tr>
+
 			</div>
 		</tbody>
-</table>	
-	
-	<a th:if="${#authentication.getPrincipal().getPerson().getRole().equals('ROLE_LIBRARIAN')}">	
-	<form th:action="@{/books/new}" th:method="GET">
-		<button class="btn btn-success mt-3" type="submit">Add new book</button>
-	</form>
+	</table>
+
+	<a
+		th:if="${#authentication.getPrincipal().getPerson().getRole().equals('ROLE_LIBRARIAN')}">
+		<form th:action="@{/books/new}" th:method="GET">
+			<button class="btn btn-success mt-3" type="submit">Add new
+				book</button>
+		</form>
 	</a>
 </div>
 
 <div th:replace="parts/common::down"></div>
 
 
-   

@@ -12,8 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
-
 @Entity
 @Table(name = "information_book_person")
 public class InformationBookPerson {
@@ -22,28 +20,29 @@ public class InformationBookPerson {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
-	
+
 	@Column(name = "start_reading")
 	private LocalDateTime startReading;
-	
+
 	@Column(name = "end_reading")
 	private LocalDateTime endReading;
-	
+
 	@Column(name = "read")
 	private Boolean read;
-	
+
 	@Column(name = "curent_page")
 	private Integer curentPage;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "person_id", referencedColumnName = "id")
 	private Person ridingPerson;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "book_id", referencedColumnName = "id")
 	private Book readBook;
-	
-	public InformationBookPerson() {}
+
+	public InformationBookPerson() {
+	}
 
 	public int getId() {
 		return id;
@@ -85,8 +84,6 @@ public class InformationBookPerson {
 		this.curentPage = curentPage;
 	}
 
-	
-	
 	public Person getRidingPerson() {
 		return ridingPerson;
 	}
@@ -127,8 +124,5 @@ public class InformationBookPerson {
 				+ ", read=" + read + ", curentPage=" + curentPage + ", ridingPerson=" + ridingPerson + ", readBook="
 				+ readBook + "]";
 	}
-	
-	
-	
-	
+
 }

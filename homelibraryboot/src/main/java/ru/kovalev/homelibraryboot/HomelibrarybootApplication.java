@@ -11,9 +11,10 @@ public class HomelibrarybootApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HomelibrarybootApplication.class, args);
 	}
-		@Bean
-		ModelMapper modelMapper() {
-			return new ModelMapper();
+
+	@Bean
+	ModelMapper modelMapper() {
+		return new ModelMapper();
 	}
-	
+
 }

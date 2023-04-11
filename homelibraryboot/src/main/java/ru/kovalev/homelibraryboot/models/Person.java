@@ -1,6 +1,5 @@
 package ru.kovalev.homelibraryboot.models;
 
-
 import java.time.LocalDateTime;
 
 import java.util.List;
@@ -26,31 +25,32 @@ public class Person {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
-	
+
 	@Column(name = "user_name")
 	@NotEmpty(message = "Имя не должно быть пустым")
-	@Size(min = 8, max = 100 , message = "Имя должно быть от 8 до 100 символов")
+	@Size(min = 8, max = 100, message = "Имя должно быть от 8 до 100 символов")
 	private String userName;
-	
+
 	@Column(name = "password")
 	@NotEmpty(message = "Пароль не должен быть пустым")
 	@Size(min = 8, max = 100, message = "Пароль должен быть от 8 до 25 символов")
 	private String password;
-	
+
 	@Column(name = "role")
 	@NotEmpty(message = "Роль не должена быть пустым")
 	private String role;
-	
+
 	@Column(name = "created_at")
 	private LocalDateTime createdAt;
-	
+
 	@OneToMany(mappedBy = "createdWho")
 	private List<Book> createdBooks;
-	
+
 	@OneToMany(mappedBy = "ridingPerson")
 	private List<InformationBookPerson> informationPersons;
-	
-	public Person() {}
+
+	public Person() {
+	}
 
 	public Person(
 			@NotEmpty(message = "Имя не должно быть пустым") @Size(min = 8, max = 100, message = "Имя должно быть от 8 до 100 символов") String userName) {
@@ -137,14 +137,4 @@ public class Person {
 				+ ", createdAt=" + createdAt + "]";
 	}
 
-
-
-	
-
-
-
-	
-	
-	
-	
 }

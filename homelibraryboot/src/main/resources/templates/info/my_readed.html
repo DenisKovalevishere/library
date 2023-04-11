@@ -2,40 +2,34 @@
 
 <div class="container mt-5">
 	<h5>Readed books</h5>
-	
-	<table class="table">
-  	<thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Title</th>
-      <th scope="col">Author</th>
-      <th scope="col">Language</th>
 
-    </tr>
-  </thead>
-  <tbody>
-	<div th:each="info, state : ${readedInfo}">
-	<tr>
-	<th scope="row"><a th:href="@{/info/{id}(id=${info.getId()})}"
-			th:text="${state.index+1}">user</a></th>
-	
-	<td>
-		<a th:href="@{/info/{id}(id=${info.getId()})}"
-			th:text="${info.getReadBook().getTitle()}">book</a>
-			</td>
-			<td>
-		<a th:href="@{/info/{id}(id=${info.getId()})}"
-			th:text="${info.getReadBook().getAuthor()}">book</a>
-			</td>
-			<td>
-		<a th:href="@{/info/{id}(id=${info.getId()})}"
-			th:text="${info.getReadBook().getLanguage()}">book</a>
-			</td>
-			
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Title</th>
+				<th scope="col">Author</th>
+				<th scope="col">Language</th>
+
 			</tr>
+		</thead>
+		<tbody>
+			<div th:each="info, state : ${readedInfo}">
+				<tr>
+					<th scope="row"><a th:href="@{/info/{id}(id=${info.getId()})}"
+						th:text="${state.index+1}">user</a></th>
+
+					<td><a th:href="@{/info/{id}(id=${info.getId()})}"
+						th:text="${info.getReadBook().getTitle()}">book</a></td>
+					<td><a th:href="@{/info/{id}(id=${info.getId()})}"
+						th:text="${info.getReadBook().getAuthor()}">book</a></td>
+					<td><a th:href="@{/info/{id}(id=${info.getId()})}"
+						th:text="${info.getReadBook().getLanguage()}">book</a></td>
+
+				</tr>
 			</div>
 		</tbody>
-</table>	
+	</table>
 
 
 </div>

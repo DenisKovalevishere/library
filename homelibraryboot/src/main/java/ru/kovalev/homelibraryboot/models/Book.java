@@ -28,35 +28,36 @@ public class Book {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
-	
+
 	@Column(name = "title")
 	@NotEmpty(message = "Название не должно быть пустым")
-	@Size(min = 2, max = 100 , message = "Название должно быть от 2 до 100 символов")
+	@Size(min = 2, max = 100, message = "Название должно быть от 2 до 100 символов")
 	private String title;
-	
+
 	@Column(name = "author")
 	@NotEmpty(message = "Автор не должен быть пустым")
 	@Size(min = 2, max = 100, message = "Автор должен быть от 2 до 100 символов")
 	private String author;
-	
+
 	@Column(name = "language")
 	@NotEmpty(message = "Язык не должена быть пустым")
 	private String language;
-	
+
 	@Column(name = "created_at")
 	private LocalDateTime createdAt;
-	
-	@Column(name="description")
+
+	@Column(name = "description")
 	private String description;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "created_who", referencedColumnName = "id")
 	private Person createdWho;
-	
+
 	@OneToMany(mappedBy = "readBook")
 	private List<InformationBookPerson> informationBooks;
-	
-	public Book() {}
+
+	public Book() {
+	}
 
 	public Book(
 			@NotEmpty(message = "Название не должно быть пустым") @Size(min = 2, max = 100, message = "Название должно быть от 2 до 100 символов") String title,
@@ -65,7 +66,7 @@ public class Book {
 		this.title = title;
 		this.author = author;
 		this.language = language;
-		this.description=description;
+		this.description = description;
 	}
 
 	public int getId() {
@@ -115,7 +116,7 @@ public class Book {
 	public void setCreatedWho(Person createdWho) {
 		this.createdWho = createdWho;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
@@ -147,7 +148,8 @@ public class Book {
 			return false;
 		Book other = (Book) obj;
 		return Objects.equals(author, other.author) && Objects.equals(createdAt, other.createdAt) && id == other.id
-				&& Objects.equals(language, other.language) && Objects.equals(title, other.title) && Objects.equals(description, other.description);
+				&& Objects.equals(language, other.language) && Objects.equals(title, other.title)
+				&& Objects.equals(description, other.description);
 	}
 
 	@Override
@@ -156,7 +158,4 @@ public class Book {
 				+ ", description=" + description + ", createdWho=" + createdWho + "]";
 	}
 
-	
-	
-	
 }

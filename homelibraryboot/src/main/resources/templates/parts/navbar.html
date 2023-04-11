@@ -1,8 +1,9 @@
 <div th:replace="parts/common::top"></div>
 
 
-<div th:fragment = "nav"> 
-	<nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark" data-bs-theme="dark">
+<div th:fragment="nav">
+	<nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark"
+		data-bs-theme="dark">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="/library">Home Library</a>
 			<button class="navbar-toggler" type="button"
@@ -14,30 +15,32 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<!-- <li class="nav-item"><a class="nav-link" href="/library/redcon">Home</a></li> -->
-					<a th:if="${#authentication.name} !=anonymousUser">
-					<a th:if="${#authentication.getPrincipal().getPerson().getRole().equals('ROLE_ADMIN')}">
-					<li class="nav-item"><a class="nav-link" href="/people">People</a></li>
-					</a>
-					
-					
-					
-					<a th:if="${#authentication.getPrincipal().getPerson().getRole() !=('ROLE_ADMIN')}">
-					<li class="nav-item"><a class="nav-link" href="/books">Books</a></li>
-					</a>
-					
-					
-					<a th:if="${#authentication.getPrincipal().getPerson().getRole().equals('ROLE_USER')}">
-					<li class="nav-item"><a class="nav-link" href="/info">I read</a></li>
-					<li class="nav-item"><a class="nav-link" href="/info/readed">Readed book</a></li>
+					<a th:if="${#authentication.name} !=anonymousUser"> <a
+						th:if="${#authentication.getPrincipal().getPerson().getRole().equals('ROLE_ADMIN')}">
+							<li class="nav-item"><a class="nav-link" href="/people">People</a></li>
+					</a> <a
+						th:if="${#authentication.getPrincipal().getPerson().getRole() !=('ROLE_ADMIN')}">
+							<li class="nav-item"><a class="nav-link" href="/books">Books</a></li>
+					</a> <a
+						th:if="${#authentication.getPrincipal().getPerson().getRole().equals('ROLE_USER')}">
+							<li class="nav-item"><a class="nav-link" href="/info">I
+									read</a></li>
+							<li class="nav-item"><a class="nav-link" href="/info/readed">Readed
+									book</a></li>
 					</a>
 					</a>
-					
-					
+
+
 				</ul>
 
-				<div style="margin-right: 10px;" th:if="${#authentication.name} !=anonymousUser"><span th:text="${#authentication.name}" class = "text-white"></span></div>
+				<div style="margin-right: 10px;"
+					th:if="${#authentication.name} !=anonymousUser">
+					<span th:text="${#authentication.name}" class="text-white"></span>
+				</div>
 
-				<div th:if="${#authentication.name} !=anonymousUser"><a th:replace="parts/common::logout">logout</a></div>
+				<div th:if="${#authentication.name} !=anonymousUser">
+					<a th:replace="parts/common::logout">logout</a>
+				</div>
 
 			</div>
 		</div>

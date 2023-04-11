@@ -8,11 +8,11 @@ import javax.validation.constraints.Size;
 import ru.kovalev.homelibraryboot.models.Person;
 
 public class BookDTO {
-	
+
 	private int id;
 
 	@NotEmpty(message = "Название не должно быть пустым")
-	@Size(min = 2, max = 100 , message = "Название должно быть от 2 до 100 символов")
+	@Size(min = 2, max = 100, message = "Название должно быть от 2 до 100 символов")
 	private String title;
 
 	@NotEmpty(message = "Автор не должен быть пустым")
@@ -21,13 +21,13 @@ public class BookDTO {
 
 	@NotEmpty(message = "Язык не должена быть пустым")
 	private String language;
-	
+
 	private String description;
 
 	private LocalDateTime createdAt;
-	
+
 	private Person createdWho;
-	
+
 	public Person getCreatedWho() {
 		return createdWho;
 	}
@@ -83,6 +83,5 @@ public class BookDTO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
+
 }

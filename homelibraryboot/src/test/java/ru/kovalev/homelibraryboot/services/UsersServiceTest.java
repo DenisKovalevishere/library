@@ -50,7 +50,8 @@ class UsersServiceTest {
 		info.setCurentPage(0);
 		info.setRead(false);
 		info.setReadBook(librarianServise.findBookById(createBook()));
-		info.setRidingPerson(peopleService.findPersonByName(SecurityContextHolder.getContext().getAuthentication().getName()).orElse(null));
+		info.setRidingPerson(peopleService
+				.findPersonByName(SecurityContextHolder.getContext().getAuthentication().getName()).orElse(null));
 		info.setEndReading(null);
 		return info;
 	}

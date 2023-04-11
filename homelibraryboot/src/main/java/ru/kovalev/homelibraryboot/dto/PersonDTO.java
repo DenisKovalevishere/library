@@ -10,25 +10,23 @@ import ru.kovalev.homelibraryboot.models.Book;
 import ru.kovalev.homelibraryboot.models.InformationBookPerson;
 
 public class PersonDTO {
-	
-	
+
 	private int id;
-	
+
 	@NotEmpty(message = "Имя не должно быть пустым")
-	@Size(min = 8, max = 100 , message = "Имя должно быть от 8 до 100 символов")
+	@Size(min = 8, max = 100, message = "Имя должно быть от 8 до 100 символов")
 	private String userName;
 
 	@NotEmpty(message = "Пароль не должен быть пустым")
 	@Size(min = 8, max = 25, message = "Пароль должен быть от 8 до 25 символов")
 	private String password;
-	
-	
+
 	private String role;
 
 	private LocalDateTime createdAt;
-	
+
 	private List<Book> createdBooks;
-	
+
 	private List<InformationBookPerson> informationPersons;
 
 	public String getUserName() {
@@ -87,5 +85,4 @@ public class PersonDTO {
 		this.createdAt = createdAt;
 	}
 
-	
 }

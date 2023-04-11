@@ -2,34 +2,51 @@
 
 <div class="container mt-5">
 	<div class="card">
-  <div class="card-header">
-	Book card</div>
-	<div class="card-body">
-    <h5 class="card-title"><p th:text="${book.getTitle()}">Value</p></h5>
-	 <p class="card-text"><p th:text="'Author: ' + ${book.getAuthor()}">Value</p></p>
-	 <p class="card-text"><p th:text="'Language: ' + ${book.getLanguage()}">Value</p></p>
-	 <p class="card-text"><p th:text="'Created at: ' + ${book.getCreatedAt().toLocalDate()}">Value</p></p>
-	 <p class="card-text"><p th:text="'Created who: ' + ${book.getCreatedWho()?.getUserName()}">Value</p></p>
-	 <p class="card-text"><p th:text="'Description: ' + ${book.getDescription()}">Value</p></p>
-	
-	
-<div>
-<a th:if="${#authentication.getPrincipal().getPerson().getRole().equals('ROLE_USER')}">
-	<form th:method="PATCH"
-		th:action="@{/books/{id}/check(id=${book.getId()})}">
-		<button type="submit" class="btn btn-secondary mt-3">Tap i read</button>
-	</form></a>
-	<a th:if="${#authentication.getPrincipal().getPerson().getRole().equals('ROLE_LIBRARIAN')}">
-	<form th:method="GET"
-		th:action="@{/books/{id}/edit(id=${book.getId()})}">
-		<button type="submit" class="btn btn-warning">Update book</button>
-	</form>
-	<form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
-		<button type="submit" class="btn btn-danger">Delete book</button>
-	</form></a>
-</div>
+		<div class="card-header">Book card</div>
+		<div class="card-body">
+			<h5 class="card-title">
+				<p th:text="${book.getTitle()}">Value</p>
+			</h5>
+			<p class="card-text">
+			<p th:text="'Author: ' + ${book.getAuthor()}">Value</p>
+			</p>
+			<p class="card-text">
+			<p th:text="'Language: ' + ${book.getLanguage()}">Value</p>
+			</p>
+			<p class="card-text">
+			<p th:text="'Created at: ' + ${book.getCreatedAt().toLocalDate()}">Value</p>
+			</p>
+			<p class="card-text">
+			<p th:text="'Created who: ' + ${book.getCreatedWho()?.getUserName()}">Value</p>
+			</p>
+			<p class="card-text">
+			<p th:text="'Description: ' + ${book.getDescription()}">Value</p>
+			</p>
+
+
+			<div>
+				<a
+					th:if="${#authentication.getPrincipal().getPerson().getRole().equals('ROLE_USER')}">
+					<form th:method="PATCH"
+						th:action="@{/books/{id}/check(id=${book.getId()})}">
+						<button type="submit" class="btn btn-secondary mt-3">Tap
+							i read</button>
+					</form>
+				</a> <a
+					th:if="${#authentication.getPrincipal().getPerson().getRole().equals('ROLE_LIBRARIAN')}">
+					<form th:method="GET"
+						th:action="@{/books/{id}/edit(id=${book.getId()})}">
+						<button type="submit" class="btn btn-warning">Update book</button>
+					</form>
+					<form th:method="DELETE"
+						th:action="@{/books/{id}(id=${book.getId()})}">
+						<button type="submit" class="btn btn-danger">Delete book</button>
+
+					</form>
+				</a>
+			</div>
+		</div>
 	</div>
-</div>
 
 </div>
 <div th:replace="parts/common::down"></div>

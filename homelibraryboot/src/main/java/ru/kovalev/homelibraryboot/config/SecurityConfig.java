@@ -20,8 +20,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	private final PersonsDetailService personsDetailService;
 	
-	
-	
 	public SecurityConfig(PersonsDetailService personsDetailService) {
 		this.personsDetailService = personsDetailService;
 	}
@@ -31,12 +29,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http
                 .authorizeHttpRequests(requests -> requests
                         .antMatchers("/people", "/people/new", "/people/{id}", "/people/{id}/edit").hasRole("ADMIN")
-                        .antMatchers("/books/new", "/books/{id}/edit").hasRole("LIBRARIAN")//delite add
+                        .antMatchers("/books/new", "/books/{id}/edit").hasRole("LIBRARIAN")//delete add
                         .antMatchers("/info", "/info/{id}", "/info/readed", "/info{id}/set_readed", "/info{id}/set_page", "/books/{id}/check").hasRole("USER")
                         .antMatchers("/auth/login", "/auth/registration", "/error", "/library")
                         .permitAll())
-//			.anyRequest().hasAnyRole("LIBRARIAN", "USER") //Exception
-//                        .anyRequest().hasAnyRole("ADMIN", "LIBRARIAN", "USER"))
                 .formLogin(login -> login.loginPage("/auth/login")
                         .loginProcessingUrl("/process_login")
                         .defaultSuccessUrl("/library/redcon", true)

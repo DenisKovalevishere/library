@@ -1,26 +1,30 @@
-<div th:replace= "parts/common::top"></div>
+<div th:replace="parts/common::top"></div>
 
-	<div class="container mt-5">
+<div class="container mt-5">
 	<form method="POST" th:action="@{/people}" th:object="${person}">
-	
-	<form class="row g-3">
-  <div class="mb-3">
-		<label for="userName" class="form-label">Enter user name</label> 
-		<input type="text" th:field="*{userName}" class="form-control" id="userName" /> 
-		<div style="color:red" th:if="${#fields.hasErrors('userName')}" th:errors = "*{userName}">Name error</div>
-		
-		
-		<label
-		for="password" class="form-label">Enter password</label> 
-		<input type="text" th:field="*{password}" class="form-control" id="password" /> 
-		<div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors = "*{password}">password error</div>
-		
-		
-		<button type="submit" class="btn btn-success mt-3">Add librarian</button>
-	</div>
-	</form>
-	
-	
+
+		<form class="row g-3">
+			<div class="mb-3">
+				<label for="userName" class="form-label">Enter user name</label> <input
+					type="text" th:field="*{userName}" class="form-control"
+					id="userName" />
+				<div style="color: red" th:if="${#fields.hasErrors('userName')}"
+					th:errors="*{userName}">Name error</div>
+
+
+				<label for="password" class="form-label">Enter password</label> <input
+					type="text" th:field="*{password}" class="form-control"
+					id="password" />
+				<div style="color: red" th:if="${#fields.hasErrors('password')}"
+					th:errors="*{password}">password error</div>
+
+
+				<button type="submit" class="btn btn-success mt-3">Add
+					librarian</button>
+			</div>
+		</form>
+
+
 	</form>
 </div>
-<div th:replace= "parts/common::down"></div>
+<div th:replace="parts/common::down"></div>

@@ -2,34 +2,36 @@
 
 <div class="container mt-5">
 	<h5 class="mt-auto">Users :</h5>
-	
-	<table class="table">
-  	<thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">User name</th>
-      <th scope="col">Role</th>
 
-    </tr>
-  </thead>
-  <tbody>
-	<div th:each="person, state : ${people}">
-	<tr>	
-	<th scope="row"><a th:href="@{/people/{id}(id=${person.getId()})}"
-			th:text="${state.index+1}">user</a></th>
-      <td><a th:href="@{/people/{id}(id=${person.getId()})}"
-			th:text="${person.getUserName()}">user</a></td>
-			
-		 <td><a th:href="@{/people/{id}(id=${person.getId()})}"
-			th:text="${person.getRole()}">user</a></td>	
-			
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">User name</th>
+				<th scope="col">Role</th>
+
 			</tr>
+		</thead>
+		<tbody>
+			<div th:each="person, state : ${people}">
+				<tr>
+					<th scope="row"><a
+						th:href="@{/people/{id}(id=${person.getId()})}"
+						th:text="${state.index+1}">user</a></th>
+					<td><a th:href="@{/people/{id}(id=${person.getId()})}"
+						th:text="${person.getUserName()}">user</a></td>
+
+					<td><a th:href="@{/people/{id}(id=${person.getId()})}"
+						th:text="${person.getRole()}">user</a></td>
+
+				</tr>
 			</div>
 		</tbody>
-</table>	
-	
+	</table>
+
 	<form th:action="@{/people/new}" th:method="GET">
-		<button class="btn btn-success mt-3" type="submit">Add new librarian</button>
+		<button class="btn btn-success mt-3" type="submit">Add new
+			librarian</button>
 	</form>
 
 </div>

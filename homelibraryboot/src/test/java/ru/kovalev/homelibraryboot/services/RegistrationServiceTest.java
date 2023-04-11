@@ -1,6 +1,5 @@
 package ru.kovalev.homelibraryboot.services;
 
-
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -17,7 +16,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import ru.kovalev.homelibraryboot.models.Person;
 import ru.kovalev.homelibraryboot.repositories.PeopleRepository;
 
-
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @TestPropertySource("/application-test.properties")
@@ -25,13 +23,13 @@ class RegistrationServiceTest {
 
 	@Autowired
 	private RegistrationService registrationService;
-	
+
 	@MockBean
 	private PeopleRepository peopleRepository;
-	
+
 	@MockBean
 	private PasswordEncoder passwordEncoder;
-	
+
 	@Test
 	void testRegistrationOneAdmin() {
 		Person person = new Person("testAdminNameForTests");
@@ -40,11 +38,11 @@ class RegistrationServiceTest {
 		Assert.assertTrue(CoreMatchers.is(person.getUserName()).matches("testAdminNameForTests"));
 		Assert.assertNotNull(person.getCreatedAt());
 		Assert.assertTrue(CoreMatchers.is(person.getRole()).matches("ROLE_ADMIN"));
-		
+
 		Mockito.verify(peopleRepository, Mockito.times(1)).save(person);
 		Mockito.verify(passwordEncoder, Mockito.times(1)).encode(ArgumentMatchers.eq("1111111111"));
 	}
-	
+
 	@Test
 	void testRegistration() {
 		Person person = new Person("testUserNameForTests");
@@ -53,7 +51,7 @@ class RegistrationServiceTest {
 		Assert.assertTrue(CoreMatchers.is(person.getUserName()).matches("testUserNameForTests"));
 		Assert.assertNotNull(person.getCreatedAt());
 		Assert.assertTrue(CoreMatchers.is(person.getRole()).matches("ROLE_USER"));
-		
+
 		Mockito.verify(peopleRepository, Mockito.times(1)).save(person);
 		Mockito.verify(passwordEncoder, Mockito.times(1)).encode(ArgumentMatchers.eq("2222222222"));
 	}

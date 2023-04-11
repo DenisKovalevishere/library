@@ -4,24 +4,26 @@
 	<form th:method="PATCH"
 		th:action="@{/people/{id}(id=${person.getId()})}"
 		th:object="${person}">
-		
+
 		<form>
- 		 <div class="mb-3">
-		<label for="userName" class="form-label">Enter user name</label> <input
-			type="text" th:field="*{userName}" id="userName" placeholder="User name" class="form-control"/>
-		<div style="color: red" th:if="${#fields.hasErrors('userName')}"
-			th:errors="*{userName}">Name error</div>
+			<div class="mb-3">
+				<label for="userName" class="form-label">Enter user name</label> <input
+					type="text" th:field="*{userName}" id="userName"
+					placeholder="User name" class="form-control" />
+				<div style="color: red" th:if="${#fields.hasErrors('userName')}"
+					th:errors="*{userName}">Name error</div>
 			</div>
-		<div class="mb-3">
-		<label for="password" class="form-label">Enter password</label> <input type="password"
-			th:field="*{password}" placeholder="Password" id="password" class="form-control"/>
-		<div style="color: red" th:if="${#fields.hasErrors('password')}"
-			th:errors="*{password}">Name error</div>
-		</div>	
-			
-		<button type="submit" class="btn btn-success mt-3">Update</button>
-		
-		
-	</form>
+			<div class="mb-3">
+				<label for="password" class="form-label">Enter password</label> <input
+					type="password" th:field="*{password}" placeholder="Password"
+					id="password" class="form-control" />
+				<div style="color: red" th:if="${#fields.hasErrors('password')}"
+					th:errors="*{password}">Name error</div>
+			</div>
+
+			<button type="submit" class="btn btn-success mt-3">Update</button>
+
+
+		</form>
 </div>
 <div th:replace="parts/common::down"></div>

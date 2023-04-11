@@ -12,7 +12,7 @@
 	crossorigin="anonymous">
 </head>
 <body>
-<div th:replace="parts/navbar::nav"></div>
+	<div th:replace="parts/navbar::nav"></div>
 </div>
 <
 <div th:fragment="down">
@@ -37,8 +37,8 @@
 
 <div th:fragment="logout">
 	<form th:action="@{/logout}" th:method="POST">
-	<div class="d-grid gap-2">
-		<button class="btn btn-danger mt-3" type="submit">Log Out</button>
+		<div class="d-grid gap-2">
+			<button class="btn btn-danger mt-3" type="submit">Log Out</button>
 		</div>
 	</form>
 </div>

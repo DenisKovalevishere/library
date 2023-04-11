@@ -1,32 +1,32 @@
-<div th:replace= "parts/common::top"></div>
+<div th:replace="parts/common::top"></div>
 
-	<div class="container mt-5">
+<div class="container mt-5">
 	<div class="card">
-  <div class="card-header">
-	Person card</div>
-	<div class="card-body">
-    <h5 class="card-title"><p th:text="${person.getUserName()}">Value</p></h5>
-	 <p class="card-text"><p th:text="'Role: ' + ${person.getRole()}">Value</p></p>
-	 <p class="card-text"><p th:text="'Created at: ' + ${person.getCreatedAt().toLocalDate()}">Value</p></p>
+		<div class="card-header">Person card</div>
+		<div class="card-body">
+			<h5 class="card-title">
+				<p th:text="${person.getUserName()}">Value</p>
+			</h5>
+			<p class="card-text">
+			<p th:text="'Role: ' + ${person.getRole()}">Value</p>
+			</p>
+			<p class="card-text">
+			<p th:text="'Created at: ' + ${person.getCreatedAt().toLocalDate()}">Value</p>
+			</p>
 
-	
-	
-	
-	
-<div>
-	<form th:method="GET"
-		th:action="@{/people/{id}/edit(id=${person.getId()})}">
-		<button type="submit" class="btn btn-warning">Update person</button>
-	</form>
-	<form th:method="DELETE"
-		th:action="@{/people/{id}(id=${person.getId()})}">
-		<button type="submit" class="btn btn-danger">Delete person</button>
-	</form>
-</div>
+			<div>
+				<form th:method="GET"
+					th:action="@{/people/{id}/edit(id=${person.getId()})}">
+					<button type="submit" class="btn btn-warning">Update
+						person</button>
+				</form>
+				<form th:method="DELETE"
+					th:action="@{/people/{id}(id=${person.getId()})}">
+					<button type="submit" class="btn btn-danger">Delete person</button>
+				</form>
+			</div>
+		</div>
 	</div>
-</div>
-
-
 
 </div>
-<div th:replace= "parts/common::down"></div>
+<div th:replace="parts/common::down"></div>

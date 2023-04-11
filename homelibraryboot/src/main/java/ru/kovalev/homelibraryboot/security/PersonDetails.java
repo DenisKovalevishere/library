@@ -3,18 +3,16 @@ package ru.kovalev.homelibraryboot.security;
 import java.util.Collection;
 import java.util.Collections;
 
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import ru.kovalev.homelibraryboot.models.Person;
 
-public class PersonDetails implements UserDetails{
+public class PersonDetails implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
 	private final Person person;
-
 
 	public PersonDetails(Person person) {
 		this.person = person;
@@ -65,6 +63,5 @@ public class PersonDetails implements UserDetails{
 	public Person getPerson() {
 		return person;
 	}
-	
-	
+
 }

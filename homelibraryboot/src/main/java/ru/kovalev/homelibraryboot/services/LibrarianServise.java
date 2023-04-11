@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,65 +23,60 @@ public class LibrarianServise {
 	private final BooksRepository booksRepository;
 	private final PeopleRepository peopleRepository;
 
-
-
 	public LibrarianServise(BooksRepository booksRepository, PeopleRepository peopleRepository) {
 		this.booksRepository = booksRepository;
 		this.peopleRepository = peopleRepository;
 
 	}
-	
-	public List<Book> findAllBooks(Integer page){
-		if(page==null) {
-			page=0;
-		}
-		return booksRepository.findAll(PageRequest.of(page, 10, Sort.by("title"))).getContent();
+
+	public List<Book> findAllBooks() {
+		return booksRepository.findAll(Sort.by("title"));
 	}
-	
+
 	public Book findBookById(int id) {
 		return booksRepository.findById(id).orElse(null);
 	}
-	
+
 	public List<Book> findBookContainTitle(String title) {
-		List<Book> sorted = booksRepository.findByTitleContaining(title).stream().
-				sorted((o1, o2) -> ((o1.getTitle().compareTo(o2.getTitle())))).collect(Collectors.toList());		
+		List<Book> sorted = booksRepository.findByTitleContaining(title).stream()
+				.sorted((o1, o2) -> ((o1.getTitle().compareTo(o2.getTitle())))).collect(Collectors.toList());
 		return sorted;
 	}
-	
+
 	public Optional<Book> findBookByTitle(String title) {
 		return booksRepository.findByTitle(title);
 	}
-	
-	public Person getCurrentPerson(){
+
+	public Person getCurrentPerson() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Person person = peopleRepository.findByUserName(auth.getName()).orElse(null);
 		return person;
 	}
-	
-	//Add created date for new book
+
+	// Add created date for new book
 	private void enrichBook(Book book) {
 		book.setCreatedAt(LocalDateTime.now());
 		book.setCreatedWho(getCurrentPerson());// created who?
-		
+
 	}
-	
+
 	@Transactional
 	public void saveBook(Book book) {
 		enrichBook(book);
 		booksRepository.save(book);
 	}
-	
+
 	@Transactional
 	public void deleteBook(int id) {
 		booksRepository.deleteById(id);
 	}
-	
-	//Method enrich only for new book, this book already exists
+
+	// Method enrich only for new book, this book already exists
 	@Transactional
 	public void updateBook(Book updatedBook, int id) {
 		enrichBook(updatedBook);
 		updatedBook.setId(id);
 		booksRepository.save(updatedBook);
 	}
-	
+
 }

@@ -2,39 +2,54 @@
 
 <div class="container mt-5">
 	<div class="card">
-  <div class="card-header">
-	Info by read book</div>
-	<div class="card-body">
-    <h5 class="card-title"><p th:text="${oneInfo.getReadBook().getTitle()}">Value</p></h5>
-	 <p class="card-text"><p th:text="'Author: ' + ${oneInfo.getReadBook().getAuthor()}">Value</p></p>
-	 <p class="card-text"><p th:text="'Current page: ' + ${oneInfo.getCurentPage()}">Value</p></p>
-	 <p class="card-text"><p th:text="'Book readed: ' + ${oneInfo.isRead()}">Value</p></p>
-	 <p class="card-text"><p th:text="'When start read: ' + ${oneInfo.getStartReading()?.toLocalDate()}">Value</p></p>
-	 <p class="card-text"><p th:text="'When end read: ' + ${oneInfo.getEndReading()?.toLocalDate()}">Value</p></p>
+		<div class="card-header">Info by read book</div>
+		<div class="card-body">
+			<h5 class="card-title">
+				<p th:text="${oneInfo.getReadBook().getTitle()}">Value</p>
+			</h5>
+			<p class="card-text">
+			<p th:text="'Author: ' + ${oneInfo.getReadBook().getAuthor()}">Value</p>
+			</p>
+			<p class="card-text">
+			<p th:text="'Current page: ' + ${oneInfo.getCurentPage()}">Value</p>
+			</p>
+			<p class="card-text">
+			<p th:text="'Book readed: ' + ${oneInfo.isRead()}">Value</p>
+			</p>
+			<p class="card-text">
+			<p
+				th:text="'When start read: ' + ${oneInfo.getStartReading()?.toLocalDate()}">Value</p>
+			</p>
+			<p class="card-text">
+			<p
+				th:text="'When end read: ' + ${oneInfo.getEndReading()?.toLocalDate()}">Value</p>
+			</p>
 
 
-	
-<div>
-	<form th:method="PATCH"
-		th:action="@{/info/{id}/set_page(id=${oneInfo.getId()})}"
-		th:object="${oneInfo}">
-		<form class="row g-3">
-		<div class="col-2">
-		<label for="curentPage" class="form-label">Enter current page</label> 
-		<input class="form-control" type="text" id="curentPage" name="curentPage" th:field="*{curentPage}" /> 
-		<div style="color: red" th:if="${#fields.hasErrors('curentPage')}"
-			th:errors="*{curentPage}">Current page error</div>
+
+			<div>
+				<form th:method="PATCH"
+					th:action="@{/info/{id}/set_page(id=${oneInfo.getId()})}"
+					th:object="${oneInfo}">
+					<form class="row g-3">
+						<div class="col-2">
+							<label for="curentPage" class="form-label">Enter current
+								page</label> <input class="form-control" type="text" id="curentPage"
+								name="curentPage" th:field="*{curentPage}" required
+								pattern="[0-9]+" placeholder="Numeric format" />
+						</div>
+						<button type="submit" class="btn btn-success">Done</button>
+					</form>
+				</form>
+				<form th:method="PATCH"
+					th:action="@{/info/{id}/set_readed(id=${oneInfo.getId()})}">
+					<button type="submit" class="btn btn-primary mt-3">Set
+						readed</button>
+				</form>
+
+			</div>
 		</div>
-		<button type="submit" class="btn btn-success" >Done</button></form>
-	</form>
-	<form th:method="PATCH"
-		th:action="@{/info/{id}/set_readed(id=${oneInfo.getId()})}">
-		<button type="submit" class="btn btn-primary mt-3">Set readed</button>
-	</form>
-
-</div>
 	</div>
-</div>
 
 </div>
 <div th:replace="parts/common::down"></div>
