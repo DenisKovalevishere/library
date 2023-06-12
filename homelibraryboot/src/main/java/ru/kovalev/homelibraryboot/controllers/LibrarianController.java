@@ -1,5 +1,6 @@
 package ru.kovalev.homelibraryboot.controllers;
 
+import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -37,6 +38,7 @@ public class LibrarianController {
 	private String bookAuthor = "Харпер Ли";
 	private String bookLaguage = "русский";
 	private String bookDescription = "История судебного процесса по делу чернокожего парня, обвиненного в насилии над белой девушкой.";
+	public static LocalDateTime timestampAddNewBook;
 
 	public LibrarianController(LibrarianServise librarianServise, ModelMapper modelMapper, UsersService usersService,
 			BookValidator bookValidator) {
@@ -86,6 +88,7 @@ public class LibrarianController {
 			return "books/new";
 		}
 		librarianServise.saveBook(book);
+		timestampAddNewBook = book.getCreatedAt();
 		return "redirect:/books";
 	}
 

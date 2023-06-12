@@ -27,7 +27,7 @@ public class AdminService {
 
 //	@PreAuthorize("hasRole('ROLE_ADMIN')") //or hasRole('ROLE_USER')")
 	public List<Person> findAllPeople() {
-		return peopleRepository.findAll(Sort.by("userName"));
+		return peopleRepository.findAll(Sort.by("role", "createdAt", "userName"));
 	}
 
 	public Person findPerson(int id) {

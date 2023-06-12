@@ -27,7 +27,8 @@
 									read</a></li>
 							<li class="nav-item"><a class="nav-link" href="/info/readed">Readed
 									book</a></li>
-					</a>
+					</a>	
+					
 					</a>
 
 
@@ -36,8 +37,9 @@
 				<div style="margin-right: 10px;"
 					th:if="${#authentication.name} !=anonymousUser">
 					<span th:text="${#authentication.name}" class="text-white"></span>
+					
 				</div>
-
+				
 				<div th:if="${#authentication.name} !=anonymousUser">
 					<a th:replace="parts/common::logout">logout</a>
 				</div>
